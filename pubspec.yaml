@@ -1,0 +1,32 @@
+name: total_control
+description: "Total Control - Block streaming sites and apps to focus on what matters."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.2.2
+  crypto: ^3.0.3
+  image_picker: ^1.1.2
+  google_mlkit_text_recognition: ^0.15.0
+
+  # Firebase
+  firebase_core: ^2.24.0
+  cloud_firestore: ^4.13.0
+
+  # Health Connect
+  health: ^10.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

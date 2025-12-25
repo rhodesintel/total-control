@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "107938374380",
+    "project_id": "totalcontrol-240ec",
+    "storage_bucket": "totalcontrol-240ec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107938374380:android:fe18f894ef891fc0f33bc9",
+        "android_client_info": {
+          "package_name": "com.rhodesai.total_control"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSLhZNqWCPotDnQKVryKa9kCBvXqfBalg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
