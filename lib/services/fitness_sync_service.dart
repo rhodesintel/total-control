@@ -54,11 +54,11 @@ class FitnessSyncService {
       final stepsData = await _health.getTotalStepsInInterval(startOfDay, now);
       steps = stepsData ?? 0;
 
-      // Get workouts and calories
+      // Get workouts and calories (v10.x uses positional params)
       final healthData = await _health.getHealthDataFromTypes(
-        types: [HealthDataType.WORKOUT, HealthDataType.ACTIVE_ENERGY_BURNED],
-        startTime: startOfDay,
-        endTime: now,
+        startOfDay,
+        now,
+        [HealthDataType.WORKOUT, HealthDataType.ACTIVE_ENERGY_BURNED],
       );
 
       for (final point in healthData) {
