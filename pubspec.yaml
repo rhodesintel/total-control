@@ -20,6 +20,9 @@ dependencies:
   firebase_core: ^2.24.0
   cloud_firestore: ^4.13.0
 
+  # Health Connect
+  health: ^10.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
