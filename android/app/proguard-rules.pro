@@ -18,9 +18,5 @@
 # Keep dnsjava core classes
 -keep class org.xbill.DNS.** { *; }
 
-# Google ML Kit - keep all text recognition classes
--keep class com.google.mlkit.vision.text.** { *; }
--dontwarn com.google.mlkit.vision.text.chinese.**
--dontwarn com.google.mlkit.vision.text.devanagari.**
--dontwarn com.google.mlkit.vision.text.japanese.**
--dontwarn com.google.mlkit.vision.text.korean.**
+# Google ML Kit - DISABLED (package removed for CI)
+# -keep class com.google.mlkit.vision.text.** { *; }
