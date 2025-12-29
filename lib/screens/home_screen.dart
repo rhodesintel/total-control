@@ -258,6 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final itemsController = TextEditingController();
     final valueController = TextEditingController(text: '10000');
     ConditionType selectedType = ConditionType.steps;
+    Set<String> selectedCategories = {};
 
     showDialog(
       context: context,
@@ -273,19 +274,61 @@ class _HomeScreenState extends State<HomeScreen> {
                 // NO ___
                 const Text('NO', style: TextStyle(color: AppColors.amber, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
+
+                // Category chips
+                const Text('Quick select:', style: TextStyle(color: AppColors.textDim, fontSize: 10)),
+                const SizedBox(height: 4),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: BlockCategory.presets.map((cat) {
+                    final isSelected = selectedCategories.contains(cat.name);
+                    return FilterChip(
+                      label: Text('${cat.icon} ${cat.name}'),
+                      selected: isSelected,
+                      selectedColor: AppColors.amber,
+                      backgroundColor: AppColors.metal,
+                      labelStyle: TextStyle(
+                        color: isSelected ? AppColors.bg : AppColors.text,
+                        fontSize: 10,
+                      ),
+                      onSelected: (selected) {
+                        setDialogState(() {
+                          if (selected) {
+                            selectedCategories.add(cat.name);
+                            // Add items to text field
+                            final current = itemsController.text.isEmpty
+                                ? <String>[]
+                                : itemsController.text.split(',').map((s) => s.trim()).toList();
+                            current.addAll(cat.items);
+                            itemsController.text = current.toSet().join(', ');
+                          } else {
+                            selectedCategories.remove(cat.name);
+                            // Remove items
+                            final current = itemsController.text.split(',').map((s) => s.trim()).toSet();
+                            current.removeAll(cat.items);
+                            itemsController.text = current.join(', ');
+                          }
+                        });
+                      },
+                    );
+                  }).toList(),
+                ),
+
+                const SizedBox(height: 12),
+                const Text('Or type manually:', style: TextStyle(color: AppColors.textDim, fontSize: 10)),
                 TextField(
                   controller: itemsController,
                   style: const TextStyle(color: AppColors.text),
+                  maxLines: 2,
                   decoration: const InputDecoration(
-                    hintText: 'Netflix, YouTube',
+                    hintText: 'Netflix, YouTube, TikTok...',
                     hintStyle: TextStyle(color: AppColors.textDim),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: AppColors.metal),
                     ),
                   ),
                 ),
-                const SizedBox(height: 4),
-                const Text('(comma-separated)', style: TextStyle(color: AppColors.textDim, fontSize: 10)),
 
                 const SizedBox(height: 20),
 

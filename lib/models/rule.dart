@@ -1,6 +1,41 @@
 /// TotalControl Rule Model
 /// "NO X UNTIL X" - Simple rule-based blocking
 
+/// Preset categories for quick rule setup
+class BlockCategory {
+  final String name;
+  final String icon;
+  final List<String> items;
+
+  const BlockCategory(this.name, this.icon, this.items);
+
+  static const List<BlockCategory> presets = [
+    BlockCategory('Social Media', '📱', [
+      'Facebook', 'Instagram', 'Twitter', 'X', 'TikTok',
+      'Snapchat', 'LinkedIn', 'Pinterest', 'Reddit'
+    ]),
+    BlockCategory('Streaming', '📺', [
+      'Netflix', 'YouTube', 'Hulu', 'Disney+', 'HBO Max',
+      'Amazon Prime', 'Twitch', 'Spotify', 'Apple TV'
+    ]),
+    BlockCategory('Messaging', '💬', [
+      'WhatsApp', 'Telegram', 'Discord', 'Slack',
+      'Messenger', 'iMessage', 'Signal'
+    ]),
+    BlockCategory('Gaming', '🎮', [
+      'Steam', 'Epic Games', 'Xbox', 'PlayStation',
+      'Nintendo', 'Roblox', 'Minecraft'
+    ]),
+    BlockCategory('News & Media', '📰', [
+      'CNN', 'BBC', 'Fox News', 'NYTimes', 'Reddit News',
+      'Google News', 'Apple News'
+    ]),
+    BlockCategory('Dating', '❤️', [
+      'Tinder', 'Bumble', 'Hinge', 'OkCupid', 'Match'
+    ]),
+  ];
+}
+
 enum ConditionType {
   steps,      // NO X UNTIL 10,000 steps
   time,       // NO X UNTIL 5:00 PM
