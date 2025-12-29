@@ -1,0 +1,30 @@
+name: total_control
+description: "NO X UNTIL X - Rule-based app/site blocking"
+publish_to: 'none'
+version: 2.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.2.2
+
+  # Firebase
+  firebase_core: ^2.24.0
+  cloud_firestore: ^4.13.0
+
+  # Location for "UNTIL at gym" rules
+  geolocator: ^11.0.0
+  permission_handler: ^11.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
