@@ -37,6 +37,42 @@ jobs:
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
 
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Enable Linux desktop
+        run: flutter config --enable-linux-desktop
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build Linux
+        run: flutter build linux --release
+
+      - name: Package Linux
+        run: |
+          cd build/linux/x64/release/bundle
+          tar -czvf ../../../../../total-control-linux.tar.gz *
+
+      - name: Upload Linux build
+        uses: actions/upload-artifact@v4
+        with:
+          name: total-control-linux
+          path: total-control-linux.tar.gz
+          retention-days: 30
+
   build-ios:
     runs-on: macos-latest
     steps:
