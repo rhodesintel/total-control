@@ -13,9 +13,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   shared_preferences: ^2.2.2
 
-  # Firebase
-  firebase_core: ^2.24.0
-  cloud_firestore: ^4.13.0
+  # Firebase - DISABLED for iOS/macOS build compatibility
+  # firebase_core: ^2.24.0
+  # cloud_firestore: ^4.13.0
 
   # Location for "UNTIL at gym" rules
   geolocator: ^11.0.0
