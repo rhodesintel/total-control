@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 
-// Cold War theme colors
+// High contrast light theme
 class AppColors {
-  static const bg = Color(0xFF1a1a0f);
-  static const panel = Color(0xFF2a2a1f);
-  static const metal = Color(0xFF3d3d2d);
-  static const amber = Color(0xFFffb000);
-  static const amberDim = Color(0xFF8b6914);
-  static const green = Color(0xFF00ff00);
-  static const greenDim = Color(0xFF006600);
-  static const red = Color(0xFFff3333);
-  static const redDim = Color(0xFF661414);
-  static const text = Color(0xFFd4c4a0);
-  static const textDim = Color(0xFF6b6348);
+  static const bg = Color(0xFF0d0d08);
+  static const panel = Color(0xFF1a1a12);
+  static const metal = Color(0xFF2a2a1c);
+  static const amber = Color(0xFFffcc00);       // Brighter amber
+  static const amberDim = Color(0xFFcc9900);    // Still visible
+  static const green = Color(0xFF44ff44);       // Brighter green
+  static const greenDim = Color(0xFF22aa22);    // Still visible
+  static const red = Color(0xFFff5555);         // Brighter red
+  static const redDim = Color(0xFFcc3333);      // Still visible
+  static const text = Color(0xFFf0e8d0);        // Much brighter text
+  static const textDim = Color(0xFFb0a080);     // Brighter dim text
 }
 
 void main() {
