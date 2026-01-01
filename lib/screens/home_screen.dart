@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 import '../models/rule.dart';
+import '../services/health_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,16 +15,46 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Rule> _rules = [];
-  Progress _progress = Progress(stepsToday: 8234, workoutMinutesToday: 15);
+  Progress _progress = Progress(stepsToday: 0, workoutMinutesToday: 0);
+  final HealthService _health = HealthService.instance;
+  StreamSubscription<int>? _stepsSubscription;
 
   @override
   void initState() {
     super.initState();
     _loadRules();
-    // Auto-open add rule dialog on launch
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showAddRuleDialog(context);
+    _initHealthTracking();
+  }
+
+  Future<void> _initHealthTracking() async {
+    // Initialize health service silently in background
+    await _health.initialize();
+    await _health.requestAuthorization();
+
+    // Listen for step updates
+    _stepsSubscription = _health.stepsStream.listen((steps) {
+      setState(() {
+        _progress = Progress(
+          stepsToday: steps,
+          workoutMinutesToday: _progress.workoutMinutesToday,
+        );
+      });
     });
+
+    // Initial fetch
+    final steps = await _health.fetchStepsToday();
+    setState(() {
+      _progress = Progress(
+        stepsToday: steps,
+        workoutMinutesToday: _progress.workoutMinutesToday,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _stepsSubscription?.cancel();
+    super.dispose();
   }
 
   Future<void> _loadRules() async {
@@ -59,13 +91,22 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Size debug at top
+            // Subtle step counter bar (non-intrusive)
             Container(
-              color: Colors.red,
-              padding: const EdgeInsets.all(4),
-              child: Text(
-                '${size.width.toInt()} x ${size.height.toInt()}',
-                style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(Icons.directions_walk, size: 14, color: AppColors.textDim),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${_progress.stepsToday.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')}',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: _progress.stepsToday >= 10000 ? AppColors.green : AppColors.textDim,
+                    ),
+                  ),
+                ],
               ),
             ),
             // Header

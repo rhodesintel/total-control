@@ -2,6 +2,16 @@
     <!-- Device Admin permission for uninstall protection -->
     <uses-permission android:name="android.permission.BIND_DEVICE_ADMIN" />
 
+    <!-- Health Connect Permissions (background step sync) -->
+    <uses-permission android:name="android.permission.health.READ_STEPS"/>
+    <uses-permission android:name="android.permission.health.READ_DISTANCE"/>
+    <uses-permission android:name="android.permission.health.READ_EXERCISE"/>
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
+    <!-- Location for gym/location rules -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:label="TotalControl"
         android:name="${applicationName}"
@@ -54,5 +64,7 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
+        <!-- Health Connect -->
+        <package android:name="com.google.android.apps.healthdata"/>
     </queries>
 </manifest>

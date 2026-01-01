@@ -18,8 +18,12 @@ dependencies:
   # cloud_firestore: ^4.13.0
 
   # Location for "UNTIL at gym" rules
-  geolocator: ^11.0.0
-  permission_handler: ^11.0.0
+  geolocator: ^14.0.0
+  permission_handler: ^12.0.0
+
+  # Health Connect for step tracking (background)
+  health: ^13.0.0
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
