@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TotalControl</string>
+    <string name="accessibility_service_description">TotalControl uses accessibility to detect and block apps based on your rules. This service monitors which apps are open to enforce your focus rules.</string>
+</resources>
