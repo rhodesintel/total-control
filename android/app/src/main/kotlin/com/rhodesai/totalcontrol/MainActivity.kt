@@ -12,7 +12,7 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
-    private val CHANNEL = "com.rhodesai.run/accessibility"
+    private val CHANNEL = "com.rhodesai.totalcontrol/accessibility"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -58,7 +58,7 @@ class MainActivity : FlutterActivity() {
             val serviceId = service.resolveInfo.serviceInfo.packageName + "/" +
                            service.resolveInfo.serviceInfo.name
             if (serviceId.contains("BlockerAccessibilityService") ||
-                serviceId.contains("com.rhodesai.run")) {
+                serviceId.contains("com.rhodesai.totalcontrol")) {
                 return true
             }
         }

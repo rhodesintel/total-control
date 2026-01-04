@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
 import '../models/rule.dart';
 import '../services/health_service.dart';
+import '../services/accessibility_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -351,7 +352,38 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showAddRuleDialog(BuildContext context) {
+  Future<void> _showAddRuleDialog(BuildContext context) async {
+    // Check accessibility permission first
+    final accessibilityEnabled = await AccessibilityService.instance.isEnabled();
+    if (!accessibilityEnabled) {
+      final shouldOpen = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          backgroundColor: AppColors.panel,
+          title: Text('Enable Accessibility', style: TextStyle(color: AppColors.amber)),
+          content: Text(
+            'TotalControl needs accessibility permission to block apps. '
+            'Enable it in Settings > Accessibility > TotalControl.',
+            style: TextStyle(color: AppColors.text),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: Text('Cancel', style: TextStyle(color: AppColors.textDim)),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: Text('Open Settings', style: TextStyle(color: AppColors.green)),
+            ),
+          ],
+        ),
+      );
+      if (shouldOpen == true) {
+        await AccessibilityService.instance.openSettings();
+      }
+      return; // Don't show add rule dialog until accessibility is enabled
+    }
+
     final itemsController = TextEditingController();
     final valueController = TextEditingController(text: '10000');
     final value2Controller = TextEditingController(text: '');
